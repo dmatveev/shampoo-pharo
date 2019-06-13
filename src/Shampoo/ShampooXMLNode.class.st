@@ -38,7 +38,7 @@ ShampooXMLNode >> attrMap [
 { #category : #accessing }
 ShampooXMLNode >> elementsNamed: aString [
 	| subnodes |
-	subnodes := underlyingXML nodes select: [:each | each name = aString].
+	subnodes := underlyingXML nodes select: [:each | each isElement and: [each name = aString]].
 	^subnodes asArray collect: [:each | ShampooXMLNode new underlyingXML: each]
 ]
 
