@@ -22,18 +22,16 @@ MethodSourceRequest class >> is: aString [
 
 { #category : #execution }
 MethodSourceRequest >> execute [
-            | class method |
-            class := Smalltalk at: className asSymbol.
-            (side = #class) ifTrue: [class := class class].
-
-            method := class methodDictionary at: name asSymbol.
-
-            ^MethodResponse
-                id: id
-                class: className
-                method: name
-                source: method getSource
-
+	| class method |
+	class := Smalltalk at: className asSymbol.
+	side = #class
+		ifTrue: [ class := class class ].
+	method := class methodDictionary at: name asSymbol.
+	^ MethodResponse
+		id: id
+		class: className
+		method: name
+		source: method sourceCode
 ]
 
 { #category : #private }

@@ -64,15 +64,15 @@ ShampooConnectionTest >> testFetchMessagesFail [
 { #category : #'as yet unclassified' }
 ShampooConnectionTest >> testSend [
 	| packetMock packet |
-            packetMock := ShampooGenericMock new.
-            packetMock on: #asXML do: ['Shampoo'].
-            "I think that testing this thing by catching
-             #nextPutAll is not a very good idea."
-            sockMock on: #sendData: do: [:s | packet := s].
-            conn send: packetMock.
-            self should:
-		[packet = ('Content-Length: 7', String crlf,
-				String crlf,
-				'Shampoo', String crlf)]
-
+   packetMock := ShampooGenericMock new.
+   packetMock on: #asXML do: [ 'Shampoo' ].
+   "I think that testing this thing by catching
+    #nextPutAll is not a very good idea."
+   sockMock on: #sendData: do: [:s | packet := s].
+   conn send: packetMock.
+   self
+		assert: packet
+		equals: ('Content-Length: 9', String crlf, String crlf, '''Shampoo''', String crlf)
+	"Note: the above line has been adjusted to recent Pharo+XML specifics,
+	This test may look quite different in other Smalltalk systems."
 ]

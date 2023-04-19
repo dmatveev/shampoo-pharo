@@ -81,9 +81,8 @@ ClientConnection >> process: anXMLRequest [
 { #category : #networking }
 ClientConnection >> send: aPacket [
 	| stream msg |
-	msg := aPacket asXML asString.
+	msg := aPacket asXML fullPrintString.
 	stream := WriteStream on: String new.
-	Transcript print: msg.
 	stream
 		nextPutAll: 'Content-Length: ', msg size printString;
 		crlf;

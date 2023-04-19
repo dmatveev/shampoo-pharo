@@ -24,7 +24,8 @@ ShampooServer class >> closeOn: aPort [
 	[| srv |
 	srv := self servers at: aPort ifAbsent: [^nil].
 	Servers removeKey: aPort.
-	srv close]
+	srv close.
+	Servers ifEmpty: [ShampooTranscript uninstall] ]
 	
 ]
 
@@ -41,7 +42,8 @@ ShampooServer class >> serversMutex [
 { #category : #'instance creation' }
 ShampooServer class >> startOn: aPort creds: aCreds [
 	self serversMutex critical: 
-		[(self servers includesKey: aPort) ifFalse:
+		[ self servers isEmptyOrNil ifTrue: [ ShampooTranscript install ].
+		 (self servers includesKey: aPort) ifFalse:
 	            [| srv |
  	            srv := self new.
 			self servers at: aPort put: srv.

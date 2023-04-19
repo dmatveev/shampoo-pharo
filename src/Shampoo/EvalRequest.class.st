@@ -16,7 +16,7 @@ Class {
 
 { #category : #execution }
 EvalRequest >> execute [
-            ^[Compiler evaluate: code] ifError: [EvalFailure new signal].
+            ^[OpalCompiler new source: code; evaluate] ifError: [EvalFailure new signal].
 
 ]
 
