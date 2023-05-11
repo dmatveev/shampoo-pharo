@@ -24,7 +24,7 @@ NotAuthorizedState >> checkLogin: aRequest [
 
 { #category : #private }
 NotAuthorizedState >> magic [
-            ^magic ifNil: [magic := Random new nextInt: 16r7FFFFFFF]
+            ^magic ifNil: [magic := Random new nextInteger: 16r7FFFFFFF]
 
 ]
 

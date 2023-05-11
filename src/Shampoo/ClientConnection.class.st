@@ -23,7 +23,7 @@ ClientConnection class >> on: aSocket onDisconnect: aBlock parent: aServer [
 
 { #category : #networking }
 ClientConnection >> close [
-	[sock close] ifError: []
+	[sock close] onErrorDo: []
 ]
 
 { #category : #networking }
@@ -71,7 +71,7 @@ ClientConnection >> on: aSocket onDisconnect: aBlock parent: aServer [
 ClientConnection >> process: anXMLRequest [
 	| r xml |
 	[xml := ShampooXMLNode from: anXMLRequest
-	] ifError: [^nil].
+	] onErrorDo: [^nil].
 	r := Request from: xml.
 	[self send: (self state process: r)]
 		on: FatalError do: [:e | self drop]
